@@ -1,0 +1,34 @@
+library(shiny)
+
+# 定義 UI 部分
+ui <- fluidPage(
+  titlePanel("總和計算器"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("num1", "第一個數字:", min = 0, max = 100, value = 50),
+      sliderInput("num2", "第二個數字:", min = 0, max = 100, value = 50)
+    ),
+    mainPanel(
+      textOutput("sumText")
+    )
+  )
+)
+
+library(shiny)
+# 定義 Server 部分
+server <- function(input, output) {
+  output$sumText <- renderText({
+    # 獲取用戶輸入的數字
+    num1 <- input$num1
+    num2 <- input$num2
+    
+    # 計算總和
+    total <- num1 + num2
+    
+    # 將總和顯示在 UI 上
+    paste("兩個數字的總和是:", total)
+  })
+}
+
+# 創建 Shiny App
+shinyApp(ui = ui, server = server)
